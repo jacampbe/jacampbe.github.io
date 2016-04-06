@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+        <meta charset="utf-8"> 
+        <title>Percent of population without health coverage, by county</title>
+        <link href="css/main.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Percent of Population without health coverage, by county</h1>
+    <p class="credits">Data Source: American Community Survey, 2014 Five-Year Estimates.</p> 
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/queue.v1.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var color = d3.scale.threshold()
+    .domain([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35])
+    .range(["#f7fcf0", "#e0f3db", "#ccebc5", "#a8ddb5", "#7bccc4", "#4eb3d3", "#2b8cbe", "#08589e"]);
+
+var path = d3.geo.path();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "data/us.json")
+    .defer(d3.csv, "data/health_care_2014.csv")
+    .await(ready);
+
+function ready(error, us, unemployment) {
+  if (error) throw error;
+
+  var rateById = {};
+
+  unemployment.forEach(function(d) { rateById[d.id] = +d.rate; });
+
+  svg.append("g")
+      .attr("class", "counties")
+    .selectAll("path")
+      .data(topojson.feature(us, us.objects.counties).features)
+    .enter().append("path")
+      .attr("d", path)
+      .style("fill", function(d) { return color(rateById[d.id]); });
+
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
+      .attr("class", "states")
+      .attr("d", path);
+}
+
+</script>
+    <div class='my-legend'>
+        <div class='legend-scale'>
+            <ul class='legend-labels'>
+                <li><span style='background:#f7fcf0;'></span>0 - 5%</li>
+                <li><span style='background:#e0f3db;'></span>10%</li>
+                <li><span style='background:#ccebc5;'></span>15%</li>
+                <li><span style='background:#a8ddb5;'></span>20%</li>
+                <li><span style='background:#7bccc4;'></span>25%</li>
+                <li><span style='background:#4eb3d3;'></span>30%</li>
+                <li><span style='background:#2b8cbe;'></span>35%</li>
+                <li><span style='background:#08589e;'></span>100%</li>
+            </ul>
+        </div>
+    </div>
+    <p class="credits">Based on <a href="http://bl.ocks.org/mbostock/3306362">Choropleth Map of US Counties</a> by Mike Bostock</p>     
+</body>    
