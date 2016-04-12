@@ -1,0 +1,46 @@
+body {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+    }
+
+h1 {
+    font-weight: 700;
+    font-size: 28px;
+    margin-left: 55px;
+    margin-bottom: 10px;
+}
+
+h2 {
+   font-weight:400;
+   margin-left: 55px;    
+   margin-top: 5px; 
+   margin-bottom: 0px;    
+}
+
+a {
+   font-size: 12px;
+   margin-left: 55px;    
+   margin-top: 5px;
+}
+
+.axis path,
+.axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+.bar {
+      fill: steelblue;
+    }
+
+.x.axis path {
+      display: none;
+    }
+
+.tooltip{
+	text-anchor: middle;
+	font-size: 12px;
+	font-weight: 700;
+}
