@@ -18,10 +18,14 @@ h2 {
    margin-bottom: 0px;    
 }
 
-a {
+p {
    font-size: 12px;
    margin-left: 55px;    
    margin-top: 5px;
+}
+
+p#credits {
+   margin-top: 25px;    
 }
 
 .axis path,
