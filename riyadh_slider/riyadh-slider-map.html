@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>Riyadh Traffic Flows</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="riyadh_traffic_voc.json"></script>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <style>
+body {
+    position: absolute;
+    font-family: "Proxima Nova", "Montserrat", sans-serif;
+}
+h1, h2 {
+    position: absolute;
+    left: 10px;
+    font-size: 1.3em;
+    font-weight: 100;
+}
+h2 {
+    top: 30px;
+    font-size: 1em;
+}
+
+#sliderContainer {
+    text-align: center;
+    position: relative;
+    top: 600px;
+}
+    </style>
+</head>
+<body>
+    <h1>Riyadh Traffic Flows</h1>
+    <h2>Volume/Capacity Ratio through a Typical Day</h2>
+    <div id="sliderContainer">
+        <input id="timeslide" type="range" min="0" max="3" value="0" step="1"/><br>
+        <span id="range">Morning</span>
+    </div>
+    <script>
+    var width = 700;
+    var height = 580;
+
+    var inputValue = null;
+    var timeOfDay = ["Morning","Midday","Evening","Rest of Day"];
+        
+    var svg = d3.select( "body" )
+        .append( "svg" )
+        .attr( "width", width )
+        .attr( "height", height );
+
+    var g = svg.append( "g" );
+
+    var albersProjection = d3.geo.mercator()
+        .scale( 25000 )
+        .rotate( [0,0] )
+        .center( [46.729105, 24.733663] )
+        .translate( [width/2,height/2] );
+
+    var geoPath = d3.geo.path()
+        .projection( albersProjection );
+            
+    g.selectAll( "path" )
+        .data( riyadh_traffic_voc_json.features )
+        .enter()
+        .append( "path" )
+        .attr( "fill", "transparent" )
+        .attr( "stroke", "#333")
+        .attr( "stroke-width", function(d){
+            return(+d.properties.voc_am*1.25);
+        })
+        .attr( "d", geoPath );
+
+    // when the input range changes update the value
+    d3.select("#timeslide").on("input", function() {
+        update(+this.value);
+    });
+
+    // update the fill of each SVG of class "incident"
+    function update(value) {
+        document.getElementById("range").innerHTML=timeOfDay[value];
+        inputValue = timeOfDay[value];
+        d3.selectAll("path")
+            .attr("stroke-width", timeMatch);
+    }
+
+    function timeMatch(d) {
+        if (inputValue == "Morning") {
+            return(+d.properties.voc_am*1.25);
+        } else if (inputValue == "Midday") {
+            return(+d.properties.voc_md*1.25);
+        } else if (inputValue == "Evening") {
+            return(+d.properties.voc_pm*1.25);
+        } else {
+            return(+d.properties.voc_rd*1.25);
+        };
+    }
+
+//    function initialDate(d,i){
+//        var d = new Date(d.properties.OPEN_DT);
+//        var m = timeOfDay[d.gettimeOfDay()];
+//        if (m == "January") {
+//            this.parentElement.appendChild(this);
+//            return "red";
+//        } else {
+//            return "#999";
+//        };
+//    }
+    </script>
+</body>
+</html>
