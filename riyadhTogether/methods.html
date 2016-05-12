@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An exercise for MIT DUSP's Data Visualization course">
+    <meta name="author" content="Jon Campbell, Corinna Li">
+
+    <title>RiyadhTOGETHER</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:400,300|Karma:400,300|Lato:400,300,700" rel="stylesheet" type="text/css">    
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+	
+    <!-- favicon -->
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html">
+                    <span class="light">Riyadh</span><strong>TOGETHER</strong>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="why.html">Need to share</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="sharing_NYC.html">Exploring sharing</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="sharing_Riyadh.html">Sharing for Riyadh</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#page-top">Methods</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="team.html">The team</a>
+                    </li>
+                </ul>
+            </div>                                                                                                                                      
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <section id="map" class="map-section">
+        
+        <div class="row">
+             <div class="col-lg-3 text-left" id="sidebar" style="padding:5% 0 5% 9%;">
+             <div class="list-group" id="sidebar">
+                <h3>the proces<br><br></h3>
+
+                <a href="#getting data"><i class="fa fa-download"></i> Getting data</a><br><br>
+                <a href="#processing data"><i class="fa fa-download"></i> Processing data</a><br><br>
+                <a href="#analyzing shareability"><i class="fa fa-download"></i> Analyzing shareability</a><br><br>
+                <a href="#visualizing data"><i class="fa fa-download"></i> Visualizing data</a>          
+            </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div id = "getting data">
+                    <h6>Getting the Data</h6>
+                    <p> We obtain our raw taxi trips data from the <a href = "http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml" target="_blank">
+                    New York City Taxi & Limousine Commission (NYC TLC).</a> The TLC, created in 1971, is the agency responsible for licensing and regulating New York City's  taxicabs, for-hire vehicles, commuter vans, paratransit vehicles and certain luxury limousines. It has recently made the city's taxi trips 
+                    available for download from its website.<br><br>
+
+                    <img class = "img-div-center" src="img/methods/TLC_data.png" width = 350 height = 200 alt=""><br>
+
+                    <p>The data come in CSV format, grouped by month. Each row is an individual taxi trip, and contains information on the trip's pick-up and drop-off times and location (latitude & longitude cordinates), distance, passenger count (reported by the driver), and the fare charged. Data for Yellow Taxis and <a href = "http://www.nyc.gov/html/tlc/html/passenger/shl_passenger.shtml">Green Taxis</a> are stored in separate files.<br>
+
+                    <p>As New York City taxi trip patterns are cyclical and consistent in volume week-to-week (barring holidays, special events, and adverse weather), just one week of data would be more than adequate for our analysis. We pick the week of October 5, 2015 (Monday) through October 11, 2015 (Sunday) -- a week without any holidays and when the weather is mild in New York.
+
+                    <br>
+
+                </div>
+                <div id = "processing data">
+                    <h6>Processing the Data</h6>
+                    <p> The next step is to clean the data, filtering the [TOTAL NUMBER OF TRIPS IN OCTOBER] trips in October down to only trips that:</p>
+                        <ol style="font-size:15px; font-family: 'Roboto Slab', serif; font-weight: 300;">
+                            <li>fall within October 5 and October 11, 2015</li>
+                            <li>start or end within a radius of 150 meters of Flushing Main Street station, the public transport hub of our exercise</li> 
+                            <li>last more than 1 minute</li>
+                            <li>have different pick-up and drop-off locations</li>
+                            <li>are than 5 miles (about 8 km)</li>
+                        </ol>
+                    <p>Criteria #3 and #4 intend to remove noise in the data. Criteria #5 is in place because we presume that people are unlikely to use taxis as a first/last-mile solution if they are more than 5 miles away from the public transport station -- they might instead of chosen to drive instead.</p>  
+
+                    <p>We use <b>R</b> to do all the filtering, and export the output as 2 CSV files -- one for trips picked up near Flushing station, another for trips dropped off near the station. The <b>GISTools</b> and <b>rgdal</b> packages allow us to perform spatial queries right in R -- neat! <br>
+
+                    </div>
+
+                <div id = "analyzing shareability">
+                    <h6>Analyzing Shareability</h6>
+                    <p>Which trips can be shared? We use routing and an assumed maximum delay threshold, implemented in Python with the <a href = "https://developers.google.com/maps/documentation/directions/" target="_blank">Google Maps Directions API</a>, to check for the "shareability" of any two trips. In this exercise, we assume that a trip can only be shared with at most one other trip, and the only factors that deterine shareability are: 1) the difference in travel time (wait time + in-vehicle travel time) with vs without sharing, for either passenger, does not exceed the maximum delay assumed; and 2) the total number of passenger in a shared trip do not exceed 5, the max capacity of New York taxicabs.</p>
+
+                    <p>For trips picked up near Flushing station:<br>
+                    <ul style="font-size:15px; font-family: 'Roboto Slab', serif; font-weight: 300;">
+                        <li>D = delay threshold (minutes)</li>
+                        <li>S = set of all trips </li>
+                        <li>TO<sub>i</sub> = Pick-up time for Trip i </li>
+                        <li>T1<sub>i</sub> = Travle time for Trip i, under unshared scenario</li>
+                        <li>T2<sub>i</sub> = Travle time for Trip i, shared scenario</li>
+                        <li>Di = Dropoff location for Trip i</li>
+                    </ul>
+                    <br>
+
+                    <img src="img/methods/schematic_1.jpg" width=550 height=300 class=img-div-center><br>
+
+                    <p>For every trip i in S, we pair it with trip j provided |TO<sub>j</sub> - TO<sub>i</sub>| <= D. We call TO<sub>j</sub> - TO<sub>i</sub> = <i>Delta</i>.<br><br> 
+                    We check which dropoff location is geographically closer to Flushing Station. Call this closer drop-off <i>W</i> (for waypoint), and the other destiation <i>Dest</i>.<br><br> 
+                    We call Google Maps Directions API, with origin = location of Flushing Station, destination = <i>Dest</i>, and <i>W</i> as a Waypoint. Google Directions API can accommodate up to 23 waypoints. The returned results include the travel times for each of the 2 legs: station - <i>W</i>, <i>W</i> to <i>Dest</i>.<br><br> 
+                    We calculate T2<sub>i</sub> and T2<sub>j</sub>, the new travel time for each trip in the sharing scenario. For the Trip that started first, we also add Delta to the travel time.<br><br> 
+                    If T2<sub>i</sub> - T1<sub>i</sub> <= D AND T2<sub>j</sub> - T1<sub>j</sub> <= D, we note in a dictionary that T<sub>j</sub> and T<sub>i</sub> are shareable.<br><br>
+
+                    <img src="img/methods/schematic_2.jpg" width=550 height=300 class=img-div-center><br>
+
+                    The result of this exercise is a dictionary, with each trip ID as the key, and all the shareable trips with that particular trip as the value. We represent this as a graph using Python's <a href="https://networkx.github.io/"> Networkx</a> library. In this grpah, each trip is a node; if two trips are shareable, an edge links up these two nodes. The initial shareability network looks like the following:<br>
+
+                    <img src = "img/methods/shareability graph_pickup.png" width=300 height=300 class=img-div-center>
+
+                    The histogram below shows that about 1,200 trips (degree > 0) can be shared with at least 1 trip. 
+
+                     <img src = "img/methods/shareability_pickup_hist.png" width=500 height=300 class=img-div-center>
+
+                    Only one more step remaining! Many trips can be shared with more than 1 trip, but in reality (and under our max 2-trip sharing assumption), every trip can only be shared with another trip simultaneously. So we perform the maximum matching algorithm on the shareability graph. The resulting graph ensures that each node has at most only 1 edge. Et voila!<br><br>
+
+
+                    For trips with destination near Flushing station, simply apply the logic in reverse logic, using the same tools. 
+
+                    <br>
+
+                    </div>
+
+                <div id = "visualizing data">
+                    <h6>Visualizing the Data</h6>
+                    <p> In order to visuaulize the different trip sharing scenarios, each scenarios trips were re-routed using the Mapzen Valhalla routing engine. For trips picked up at Flushing-Main Street Station, the origin latitude and longitude were standardeized across all trips, removing the variabilty of passengers getting picked up from different spots around thte station. Likewise, for all trips dropping off at the station, the destination latitude and longitude were set to be the same point. This allowed all of the routes to be stacked on top of eachother. Each road block was assigned an attribute of how many trips used that segment in their routing. This was done using a PL/PostGIS script in CartoDB, inspired a <a href='http://blog.cartodb.com/routing-sectionals/'>methodology</a>  developed by cartographers at CartoDB.                          
+                    </p>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; <strong>RiyadhTOGETHER</strong> 2016 &nbsp; &nbsp;|&nbsp; &nbsp; &nbsp; Website inspired by the <a href = "http://www.digitalmatatus.com/intro_full.html">Digital Matatus</a> by Chaewon Ahn</a></p>
+        </div>
+    </footer>
+</body>

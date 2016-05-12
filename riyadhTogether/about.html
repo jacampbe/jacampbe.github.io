@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An exercise for MIT DUSP's Data Visualization course">
+    <meta name="author" content="Jon Campbell, Corinna Li">
+
+    <title>RiyadhTOGETHER</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:400,300|Karma:400,300|Lato:400,300,700" rel="stylesheet" type="text/css">    
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+	
+    <!-- favicon -->
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html">
+                     <span class="light">Riyadh</span><strong>TOGETHER</strong>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#page-top">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="why.html">Need to share</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="sharing_NYC.html">Exploring sharing</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="sharing_Riyadh.html">Sharing for Riyadh</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="methods.html">Methods</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="team.html">The team</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    </body>
+
+    <!-- Intro Header -->
+    <header class="about">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                	<div class="col-lg-6" style="padding-top:15%; padding-bottom:5%;">
+                		<img src="img/riyadh_overview.png">
+                        <p class="caption text-muted">Envisioning taxi sharing from Riyadh's Union Station</p>
+      
+                    </div>
+
+                    <div class="col-lg-6" style="padding-top:20%; padding-bottom:5%;">
+                        <h2 class="featurette-heading">RiyadhTOGETHER</h2>
+                        <p><strong>RiyadhTOGETHER</strong> explores the potential of sharing taxi or ride-hail trips as a first-/last-mile solution for Riyadh's upcoming public transportation system.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <div class="container">
+
+        <hr class="featurette-divider">
+        <!-- first Featurette -->
+        <div class="featurette">
+            <img class="featurette-image img-circle img-responsive pull-left" src="img/about/NYC_taxi.jpg" alt="" style="width:300px;">
+            <h2 class="featurette-heading">
+                <span class="text-muted">New York City as a jumping board</span>
+            </h2>
+            <p class="lead">As Riyadh's public transport system is still in construction, we conduct the exercise based on a city with existing public transport network, stations, and publically-available taxi trip data. We use New York City as a jumping board, with aims to develop tools and methods that can be applied to Riyadh. 
+            <br><br></p>
+
+       </div>
+       <hr class="featurette-divider">
+    
+    
+        <div class="featurette">
+            <h2 class="featurette-heading">
+                <span class="text-muted">Sharing works!</span>
+            </h2>
+            <p class="lead">About <strong>50%</strong> of the taxi trips from the studied station (Flushing-Main Street, New York City) can be shared with a trip time delay &lt; 10 minutes for the passengers. </p>
+            <p class="lead">Trip-sharing is most feasible during the evening and night, when taxi ridership is the highest, leading to more opportunites for sharing.</p>
+
+            <a href="/sharing_NYC.html" class="btn btn-default btn-lg" target="_blank" style="width:300px;">Detailed Findings</a>             
+        </div>   
+        <hr class="featurette-divider">
+
+        <div class="featurette">
+            <img class="featurette-image img-circle img-responsive pull-right" src="img/about/data.jpg" alt="" style="width:300px;">
+            <h2 class="featurette-heading">
+                <span class="text-muted">How do we do it?</span>
+            </h2>
+            <p class="lead">We process the data using R, compute the routing and shareability of trips using Google Maps Directions API and Mapzen's Valhalla in Python, and visualize the findings in D3 and CartoDB.<br><br></p>
+
+            <a href="/methods.html" class="btn btn-default btn-lg" target="_blank" style="width:400px;"> Method Details </a>   
+
+       </div>
+       <hr class="featurette-divider">
+      
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; <strong>RiyadhTOGETHER</strong> 2016 &nbsp; &nbsp;|&nbsp; &nbsp; &nbsp; Website inspired by the <a href = "http://www.digitalmatatus.com/intro_full.html">Digital Matatus</a> by Chaewon Ahn</a></p>
+        </div>
+    </footer>
+
+	
+</body>
+
+</html>
